@@ -1,0 +1,476 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Consent Manager: Collect Consent Service",
+    "description": "Swagger Definition for Consent Manager: Collect Consent Service",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Consent Requests"
+    },
+    {
+      "name": "Consent Receipts"
+    }
+  ],
+  "servers": [],
+  "paths": {
+    "/collect-consent/api/v1/consent-request": {
+      "get": {
+        "tags": ["Consent Requests"],
+        "summary": "Get consent request",
+        "description": "Get consent request",
+        "operationId": "",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-cm-consent-request-id",
+            "in": "header",
+            "description": "Consent Request ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          },
+          {
+            "name": "x-cm-consent-custodian-id",
+            "in": "header",
+            "description": "Consent Custodian ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          }
+        ],
+        "responses": {
+          "200": {},
+          "400": {},
+          "500": {}
+        }
+      },
+      "post": {
+        "tags": ["Consent Requests"],
+        "summary": "Save consent request",
+        "description": "Save consent request that can be acted upon by the performer",
+        "operationId": "saveConsentRequest",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-cm-consent-custodian-id",
+            "in": "header",
+            "description": "Consent Custodian ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Consent request information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentRequestPostBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Consent request successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentRequestPostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/collect-consent/api/v1/consent-receipt": {
+      "get": {
+        "tags": ["Consent Receipts"],
+        "summary": "Query consent receipts",
+        "description": "Query consent receipts",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-cm-consent-custodian-id",
+            "in": "header",
+            "description": "Consent Custodian ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          },
+          {
+            "name": "x-cm-performer-id",
+            "in": "header",
+            "description": "Performer ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          },
+          {
+            "name": "x-cm-data-custodian-id",
+            "in": "header",
+            "description": "Data Custodian ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          },
+          {
+            "name": "x-cm-data-recipient-id",
+            "in": "header",
+            "description": "Data Recipient ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          },
+          {
+            "name": "purpose",
+            "in": "query",
+            "description": "Purpose",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          },
+          {
+            "name": "datatype",
+            "in": "query",
+            "description": "Data Type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "status": "accepted"
+          },
+          "400": {},
+          "500": {}
+        }
+      },
+      "post": {
+        "tags": ["Consent Receipts"],
+        "summary": "Issue consent receipt",
+        "description": "Issue consent receipt",
+        "operationId": "Issue consent receipt",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-cm-consent-custodian-id",
+            "in": "header",
+            "description": "Consent Custodian ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Consent request",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentReceiptPostBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {},
+          "400": {},
+          "500": {}
+        }
+      }
+    },
+    "/collect-consent/api/v1/consent-invitation": {
+      "post": {
+        "tags": ["Consent Invitation"],
+        "summary": "Send consent invitation",
+        "description": "Send consent invitation",
+        "operationId": "Send consent invitation",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-cm-consent-custodian-id",
+            "in": "header",
+            "description": "Consent Custodian ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 9999,
+              "pattern": ".+"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Consent request information",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentInvitationPostBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {},
+          "400": {},
+          "500": {}
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "BasicResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "minLength": 1,
+            "maxLength": 9999,
+            "pattern": ".+"
+          },
+          "status": {
+            "type": "integer",
+            "description": "Status code of response"
+          }
+        },
+        "description": "BasicResponse",
+        "example": {
+          "message": "Successful request",
+          "status": 200
+        }
+      },
+      "ServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "minLength": 1,
+            "maxLength": 9999,
+            "pattern": ".+",
+            "example": "Something went wrong"
+          },
+          "status": {
+            "type": "integer",
+            "description": "Status code of response"
+          }
+        },
+        "description": "ServerErrorResponse"
+      },
+      "BasicErrorMessage": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Response message",
+                "minLength": 1,
+                "maxLength": 9999,
+                "pattern": ".+",
+                "example": "Something went wrong"
+              }
+            },
+            "description": "Error object"
+          }
+        },
+        "description": "BasicErrorMessage"
+      },
+      "ServerErrorMessage": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "description": "Response message",
+                "minLength": 1,
+                "maxLength": 9999,
+                "pattern": ".+",
+                "example": "Something went wrong"
+              }
+            },
+            "description": "Error object"
+          }
+        },
+        "description": "ServerErrorMessage"
+      },
+      "ConsentRequestPostBody": {
+        "type": "object",
+        "example": {
+          "consentRequest": {
+            "dataCustodian": "dataCustodian1",
+            "dataRecipient": "dataRecipient1",
+            "performer": "AOTZ129626",
+            "purpose": "to collect your data",
+            "datatype": "blood-type"
+          }
+        }
+      },
+      "ConsentInvitationPostBody": {
+        "type": "object",
+        "example": {
+          "consentRequest": {
+            "dataCustodian": "dataCustodian1",
+            "dataRecipient": "dataRecipient1",
+            "performer": "AOTZ129626",
+            "purpose": "to collect your data",
+            "datatype": "blood-type"
+          },
+          "contact": 5555555555
+        }
+      },
+      "ConsentReceiptPostBody": {
+        "type": "object",
+        "example": {
+          "consentRequest": {
+            "dataCustodian": "dataCustodian1",
+            "dataRecipient": "dataRecipient1",
+            "performer": "AOTZ129626",
+            "purpose": "to collect your data",
+            "datatype": "blood-type",
+            "createdAt": "2022-08-30T19:05:23.608Z",
+            "docID": "50da895a-e199-4a5d-acff-d0fc2a313493"
+          }
+        }
+      },
+      "ConsentRequestPostResponse": {
+        "type": "object",
+        "example": {
+          "message": "Consent request successfully created",
+          "status": 201,
+          "payload": {
+            "dataCustodian": "consentco",
+            "dataRecipient": "xyz-company",
+            "performer": "AOTZ129626",
+            "purpose": "To collect your data",
+            "datatype": "consentType1",
+            "status": "pending",
+            "createdAt": "2022-09-09T17:16:59.924Z",
+            "docID": "1018aeb4-1211-43a4-8f10-b69f0454ed2c"
+          }
+        }
+      }
+    },
+    "requestBodies": {},
+    "responses": {
+      "InvalidRequestError": {
+        "description": "Missing or invalid required fields in request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BasicErrorMessage"
+            }
+          }
+        }
+      },
+      "UnauthorizedError": {
+        "description": "Logged in user is unauthorized to make this request",
+        "content": {
+          "text/plain": {
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Unexpected server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BasicErrorMessage"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "collect-consent-service",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/HCLS-Consent-Manager/collect-consent-service.git"
+  },
+  "author": "Bonnie Ishiguro",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/HCLS-Consent-Manager/collect-consent-service/issues"
+  },
+  "homepage": "https://github.com/HCLS-Consent-Manager/collect-consent-service#readme",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
